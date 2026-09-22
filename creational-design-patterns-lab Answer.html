@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Creational Design Patterns - Faculty Answer Key</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #14437b;
+            --primary-dark: #0d2f58;
+            --accent: #fbbf24;
+            --success: #15803d;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --border: #dbe3ee;
+            --text: #172033;
+            --muted: #64748b;
+            --code-bg: #111827;
+            --code-text: #e5e7eb;
+            --answer-bg: #422006;
+            --answer-border: #f59e0b;
+        }
+
+        body {
+            font-family:
+                Inter,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary-dark),
+                    var(--primary)
+                );
+
+            color: white;
+            padding: 32px 24px;
+
+            box-shadow:
+                0 4px 20px rgba(15, 23, 42, 0.15);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .header-title h1 {
+            font-size: 30px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .header-title p {
+            font-size: 15px;
+            opacity: 0.85;
+        }
+
+        .faculty-badge {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+
+            padding: 10px 18px;
+            border-radius: 30px;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            max-width: 1400px;
+            margin: auto;
+            padding: 30px 20px 70px;
+        }
+
+        /* =========================
+           INTRO
+        ========================= */
+
+        .intro-card {
+            background: white;
+            border: 1px solid var(--border);
+
+            border-radius: 16px;
+
+            padding: 25px;
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 8px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        .intro-card h2 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .intro-card p {
+            color: var(--muted);
+        }
+
+        /* =========================
+           PATTERN NAVIGATION
+        ========================= */
+
+        .pattern-nav {
+            display: grid;
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 10px;
+
+            margin-bottom: 30px;
+        }
+
+        .nav-item {
+            background: white;
+
+            border: 1px solid var(--border);
+            border-radius: 10px;
+
+            padding: 13px;
+
+            text-align: center;
+
+            font-size: 13px;
+            font-weight: 700;
+
+            color: var(--primary);
+        }
+
+        .nav-item span {
+            display: block;
+
+            font-size: 22px;
+            margin-bottom: 3px;
+        }
+
+        /* =========================
+           PATTERN CARD
+        ========================= */
+
+        .pattern-card {
+            background: var(--card);
+
+            border: 1px solid var(--border);
+
+            border-radius: 18px;
+
+            margin-bottom: 30px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px rgba(15, 23, 42, 0.05);
+        }
+
+        /* =========================
+           PATTERN HEADER
+        ========================= */
+
+        .pattern-header {
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fafc,
+                    #eef4fa
+                );
+
+            border-bottom: 1px solid var(--border);
+
+            padding: 25px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 20px;
+        }
+
+        .pattern-number {
+            color: var(--primary);
+
+            font-size: 12px;
+            font-weight: 800;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pattern-header h2 {
+            font-size: 27px;
+
+            color: var(--text);
+
+            margin-top: 4px;
+        }
+
+        .points {
+            background: #fef3c7;
+
+            color: #92400e;
+
+            border: 1px solid #fde68a;
+
+            padding: 7px 13px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+        /* =========================
+           CONTENT
+        ========================= */
+
+        .pattern-content {
+            padding: 25px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 800;
+
+            color: var(--primary);
+
+            margin-bottom: 9px;
+        }
+
+        .scenario {
+            background: #f8fafc;
+
+            border-left: 4px solid var(--primary);
+
+            padding: 16px 18px;
+
+            border-radius:
+                0 9px 9px 0;
+
+            color: #475569;
+        }
+
+        .concept {
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            padding: 16px 18px;
+
+            border-radius: 9px;
+
+            color: #1e40af;
+        }
+
+        /* =========================
+           CODE CONTAINER
+        ========================= */
+
+        .code-container {
+            width: 100%;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            border: 1px solid #1e293b;
+        }
+
+        .code-header {
+            background: #020617;
+
+            color: white;
+
+            padding: 11px 15px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            font-size: 12px;
+        }
+
+        .code-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .php-badge {
+            background: #777bb4;
+
+            color: white;
+
+            padding: 3px 7px;
+
+            border-radius: 4px;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .code-header-right {
+            opacity: 0.65;
+        }
+
+        pre {
+            margin: 0;
+        }
+
+        .code {
+            background: var(--code-bg);
+
+            color: var(--code-text);
+
+            padding: 22px;
+
+            font-family:
+                "Cascadia Code",
+                "Fira Code",
+                Consolas,
+                monospace;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            overflow-x: auto;
+
+            white-space: pre;
+
+            tab-size: 4;
+
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        /* =========================
+           ANSWER HIGHLIGHT
+        ========================= */
+
+        .answer-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 10px;
+        }
+
+        .answer-label .icon {
+            background: var(--accent);
+
+            color: #422006;
+
+            width: 28px;
+            height: 28px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            font-size: 14px;
+        }
+
+        .answer-label strong {
+            color: #92400e;
+        }
+
+        .answer-box {
+            background: #fffbeb;
+
+            border: 2px solid var(--answer-border);
+
+            border-radius: 10px;
+
+            padding: 5px;
+
+            overflow: hidden;
+        }
+
+        .answer-box .code {
+            background: var(--answer-bg);
+
+            color: #fef3c7;
+
+            border-radius: 6px;
+
+            max-height: none;
+        }
+
+        /* =========================
+           SUMMARY
+        ========================= */
+
+        .summary-card {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: 16px;
+
+            padding: 25px;
+
+            margin-top: 30px;
+        }
+
+        .summary-card h2 {
+            color: var(--primary);
+
+            margin-bottom: 15px;
+        }
+
+        .summary-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            min-width: 700px;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border);
+
+            padding: 13px;
+
+            text-align: left;
+
+            vertical-align: top;
+        }
+
+        th {
+            background: #f8fafc;
+
+            color: var(--primary);
+
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 13px;
+        }
+
+        td code {
+            background: #f1f5f9;
+
+            padding: 3px 6px;
+
+            border-radius: 4px;
+
+            font-family: monospace;
+        }
+
+        /* =========================
+           FLOW
+        ========================= */
+
+        .flow {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 20px;
+        }
+
+        .flow-item {
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            color: var(--primary);
+
+            padding: 9px 13px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        .arrow {
+            color: var(--muted);
+
+            font-weight: 900;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            color: var(--muted);
+
+            padding: 30px;
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           PRINT
+        ========================= */
+
+        @media print {
+
+            body {
+                background: white;
+            }
+
+            header {
+                position: static;
+            }
+
+            .pattern-card,
+            .intro-card,
+            .summary-card {
+                box-shadow: none;
+                break-inside: avoid;
+            }
+
+            .code {
+                max-height: none;
+                overflow: visible;
+            }
+
+            .pattern-nav {
+                display: none;
+            }
+
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .pattern-nav {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .header-container {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 22px 16px;
+            }
+
+            main {
+                padding: 20px 12px 50px;
+            }
+
+            .pattern-nav {
+                grid-template-columns: 1fr;
+            }
+
+            .pattern-header {
+                flex-direction: column;
+            }
+
+            .pattern-content {
+                padding: 17px;
+            }
+
+            .code {
+                font-size: 11px;
+                padding: 15px;
+            }
+
+            .pattern-header h2 {
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header>
+
+    <div class="header-container">
+
+        <div class="header-title">
+
+            <h1>
+                Creational Design Patterns
+            </h1>
+
+            <p>
+                Faculty Answer Key — PHP Coding Laboratory
+            </p>
+
+        </div>
+
+        <div class="faculty-badge">
+            👨‍🏫 FACULTY REFERENCE
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main>
+
+
+<!-- =========================================================
+     INTRO
+========================================================= -->
+
+<section class="intro-card">
+
+    <h2>
+        Subject Offering & Student Enrollment System
+    </h2>
+
+    <p>
+        Complete PHP reference implementations for the five
+        Creational Design Patterns used in the laboratory.
+        The code below contains the correct answers for all
+        activities.
+    </p>
+
+    <div class="flow">
+
+        <div class="flow-item">
+            Singleton
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="flow-item">
+            Factory Method
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="flow-item">
+            Abstract Factory
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="flow-item">
+            Builder
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="flow-item">
+            Prototype
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="pattern-nav">
+
+    <div class="nav-item">
+        <span>1</span>
+        Singleton
+    </div>
+
+    <div class="nav-item">
+        <span>2</span>
+        Factory Method
+    </div>
+
+    <div class="nav-item">
+        <span>3</span>
+        Abstract Factory
+    </div>
+
+    <div class="nav-item">
+        <span>4</span>
+        Builder
+    </div>
+
+    <div class="nav-item">
+        <span>5</span>
+        Prototype
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     PATTERN 1 — SINGLETON
+========================================================= -->
+
+<section class="pattern-card">
+
+    <div class="pattern-header">
+
+        <div>
+
+            <div class="pattern-number">
+                Pattern 01
+            </div>
+
+            <h2>
+                Singleton
+            </h2>
+
+        </div>
+
+        <div class="points">
+            20 POINTS
+        </div>
+
+    </div>
+
+
+    <div class="pattern-content">
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Scenario
+            </div>
+
+            <div class="scenario">
+
+                The university Subject Offering System needs
+                a centralized activity logger for the Coordinator.
+
+                Every time the Coordinator creates a subject,
+                creates an offering, assigns a faculty member,
+                or clones a section, the action must be recorded
+                in one shared logger instance.
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Concept
+            </div>
+
+            <div class="concept">
+
+                Singleton ensures that only one
+                <strong>CoordinatorLogger</strong>
+                instance exists throughout the application.
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Complete PHP Code — Correct Answer
+            </div>
+
+            <div class="code-container">
+
+                <div class="code-header">
+
+                    <div class="code-header-left">
+
+                        <span class="php-badge">
+                            PHP
+                        </span>
+
+                        Complete Implementation
+
+                    </div>
+
+                    <div class="code-header-right">
+                        Faculty Answer
+                    </div>
+
+                </div>
+
+<pre class="code"><code>&lt;?php
+
+class CoordinatorLogger
+{
+    private static ?CoordinatorLogger $instance = null;
+    private array $logs = [];
+
+    private function __construct()
+    {
+    }
+
+    public static function getInstance(): CoordinatorLogger
+    {
+        // ⭐ CORRECT ANSWER
+        if (self::$instance === null) {
+            self::$instance = new CoordinatorLogger();
+        }
+
+        // ⭐ CORRECT ANSWER
+        return self::$instance;
+    }
+
+    public function log(
+        string $coordinatorId,
+        string $action,
+        string $details
+    ): void {
+        $this->logs[] = [
+            "coordinator_id" => $coordinatorId,
+            "action" => $action,
+            "details" => $details,
+            "datetime" => date("Y-m-d H:i:s")
+        ];
+    }
+
+    public function getLogs(): array
+    {
+        return $this->logs;
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TEST
+|--------------------------------------------------------------------------
+*/
+
+$logger1 = CoordinatorLogger::getInstance();
+
+$logger2 = CoordinatorLogger::getInstance();
+
+$logger1->log(
+    "COORD-001",
+    "CREATE SUBJECT",
+    "IT202 - Web Development"
+);
+
+echo $logger1 === $logger2
+    ? "PASS: Same logger instance."
+    : "FAIL: Different logger instances.";
+
+echo "&lt;pre&gt;";
+print_r($logger1->getLogs());
+echo "&lt;/pre&gt;";</code></pre>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="answer-label">
+
+                <div class="icon">✓</div>
+
+                <strong>
+                    Student Answer Only
+                </strong>
+
+            </div>
+
+            <div class="answer-box">
+
+<pre class="code"><code>if (self::$instance === null) {
+    self::$instance = new CoordinatorLogger();
+}
+
+return self::$instance;</code></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PATTERN 2 — FACTORY METHOD
+========================================================= -->
+
+<section class="pattern-card">
+
+    <div class="pattern-header">
+
+        <div>
+
+            <div class="pattern-number">
+                Pattern 02
+            </div>
+
+            <h2>
+                Factory Method
+            </h2>
+
+        </div>
+
+        <div class="points">
+            20 POINTS
+        </div>
+
+    </div>
+
+
+    <div class="pattern-content">
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Scenario
+            </div>
+
+            <div class="scenario">
+
+                The Coordinator creates subjects in the Subject
+                Offering System.
+
+                A subject may be a Lecture, Laboratory,
+                or Lecture + Laboratory subject.
+
+                Factory Method allows specialized factories
+                to determine which Subject object should be
+                created.
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Concept
+            </div>
+
+            <div class="concept">
+
+                Factory Method answers:
+
+                <strong>
+                    "What type of Subject object should I create?"
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Complete PHP Code — Correct Answer
+            </div>
+
+            <div class="code-container">
+
+                <div class="code-header">
+
+                    <div class="code-header-left">
+
+                        <span class="php-badge">
+                            PHP
+                        </span>
+
+                        Complete Implementation
+
+                    </div>
+
+                    <div class="code-header-right">
+                        Faculty Answer
+                    </div>
+
+                </div>
+
+<pre class="code"><code>&lt;?php
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCT INTERFACE
+|--------------------------------------------------------------------------
+*/
+
+interface Subject
+{
+    public function getType(): string;
+
+    public function getDetails(): string;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CONCRETE PRODUCTS
+|--------------------------------------------------------------------------
+*/
+
+class LectureSubject implements Subject
+{
+    public function getType(): string
+    {
+        return "Lecture";
+    }
+
+    public function getDetails(): string
+    {
+        return "Lecture-based subject";
+    }
+}
+
+
+class LaboratorySubject implements Subject
+{
+    public function getType(): string
+    {
+        return "Laboratory";
+    }
+
+    public function getDetails(): string
+    {
+        return "Laboratory-based subject";
+    }
+}
+
+
+class LectureLaboratorySubject implements Subject
+{
+    public function getType(): string
+    {
+        return "Lecture + Laboratory";
+    }
+
+    public function getDetails(): string
+    {
+        return "Lecture and laboratory subject";
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| FACTORY
+|--------------------------------------------------------------------------
+*/
+
+abstract class SubjectFactory
+{
+    abstract public function createSubject(): Subject;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CONCRETE FACTORIES
+|--------------------------------------------------------------------------
+*/
+
+class LectureSubjectFactory
+    extends SubjectFactory
+{
+    public function createSubject(): Subject
+    {
+        // ⭐ CORRECT ANSWER
+        return new LectureSubject();
+    }
+}
+
+
+class LaboratorySubjectFactory
+    extends SubjectFactory
+{
+    public function createSubject(): Subject
+    {
+        // ⭐ CORRECT ANSWER
+        return new LaboratorySubject();
+    }
+}
+
+
+class LectureLaboratorySubjectFactory
+    extends SubjectFactory
+{
+    public function createSubject(): Subject
+    {
+        // ⭐ CORRECT ANSWER
+        return new LectureLaboratorySubject();
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TEST
+|--------------------------------------------------------------------------
+*/
+
+$lectureFactory =
+    new LectureSubjectFactory();
+
+$laboratoryFactory =
+    new LaboratorySubjectFactory();
+
+$lectureLaboratoryFactory =
+    new LectureLaboratorySubjectFactory();
+
+
+$lecture =
+    $lectureFactory->createSubject();
+
+$laboratory =
+    $laboratoryFactory->createSubject();
+
+$lectureLaboratory =
+    $lectureLaboratoryFactory->createSubject();
+
+
+echo $lecture->getType() . "&lt;br&gt;";
+
+echo $laboratory->getType() . "&lt;br&gt;";
+
+echo $lectureLaboratory->getType() . "&lt;br&gt;";</code></pre>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="answer-label">
+
+                <div class="icon">✓</div>
+
+                <strong>
+                    Correct Answers
+                </strong>
+
+            </div>
+
+            <div class="answer-box">
+
+<pre class="code"><code>// Lecture Factory
+return new LectureSubject();
+
+
+// Laboratory Factory
+return new LaboratorySubject();
+
+
+// Lecture + Laboratory Factory
+return new LectureLaboratorySubject();</code></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PATTERN 3 — ABSTRACT FACTORY
+========================================================= -->
+
+<section class="pattern-card">
+
+    <div class="pattern-header">
+
+        <div>
+
+            <div class="pattern-number">
+                Pattern 03
+            </div>
+
+            <h2>
+                Abstract Factory
+            </h2>
+
+        </div>
+
+        <div class="points">
+            20 POINTS
+        </div>
+
+    </div>
+
+
+    <div class="pattern-content">
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Scenario
+            </div>
+
+            <div class="scenario">
+
+                After creating a subject, the Coordinator
+                needs to create the related Subject Offering
+                components:
+
+                Subject, Schedule, Room, and Faculty.
+
+                These related objects form a family of
+                components belonging to the same offering.
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Concept
+            </div>
+
+            <div class="concept">
+
+                Factory Method creates one type of product.
+
+                Abstract Factory creates a
+                <strong>family of related products</strong>.
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Complete PHP Code — Correct Answer
+            </div>
+
+            <div class="code-container">
+
+                <div class="code-header">
+
+                    <div class="code-header-left">
+
+                        <span class="php-badge">
+                            PHP
+                        </span>
+
+                        Complete Implementation
+
+                    </div>
+
+                    <div class="code-header-right">
+                        Faculty Answer
+                    </div>
+
+                </div>
+
+<pre class="code"><code>&lt;?php
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCT INTERFACES
+|--------------------------------------------------------------------------
+*/
+
+interface OfferingSubject
+{
+    public function getName(): string;
+}
+
+
+interface OfferingSchedule
+{
+    public function getSchedule(): string;
+}
+
+
+interface OfferingRoom
+{
+    public function getRoom(): string;
+}
+
+
+interface OfferingFaculty
+{
+    public function getFaculty(): string;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CONCRETE PRODUCTS
+|--------------------------------------------------------------------------
+*/
+
+class RegularSubject implements OfferingSubject
+{
+    public function __construct(
+        private string $name
+    ) {
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+}
+
+
+class RegularSchedule implements OfferingSchedule
+{
+    public function __construct(
+        private string $schedule
+    ) {
+    }
+
+    public function getSchedule(): string
+    {
+        return $this->schedule;
+    }
+}
+
+
+class RegularRoom implements OfferingRoom
+{
+    public function __construct(
+        private string $room
+    ) {
+    }
+
+    public function getRoom(): string
+    {
+        return $this->room;
+    }
+}
+
+
+class RegularFaculty implements OfferingFaculty
+{
+    public function __construct(
+        private string $faculty
+    ) {
+    }
+
+    public function getFaculty(): string
+    {
+        return $this->faculty;
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| ABSTRACT FACTORY INTERFACE
+|--------------------------------------------------------------------------
+*/
+
+interface SubjectOfferingFactory
+{
+    public function createSubject(
+        string $name
+    ): OfferingSubject;
+
+    public function createSchedule(
+        string $schedule
+    ): OfferingSchedule;
+
+    public function createRoom(
+        string $room
+    ): OfferingRoom;
+
+    public function createFaculty(
+        string $faculty
+    ): OfferingFaculty;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| CONCRETE FACTORY
+|--------------------------------------------------------------------------
+*/
+
+class RegularSubjectOfferingFactory
+    implements SubjectOfferingFactory
+{
+    public function createSubject(
+        string $name
+    ): OfferingSubject {
+
+        // ⭐ CORRECT ANSWER
+        return new RegularSubject($name);
+    }
+
+
+    public function createSchedule(
+        string $schedule
+    ): OfferingSchedule {
+
+        // ⭐ CORRECT ANSWER
+        return new RegularSchedule($schedule);
+    }
+
+
+    public function createRoom(
+        string $room
+    ): OfferingRoom {
+
+        // ⭐ CORRECT ANSWER
+        return new RegularRoom($room);
+    }
+
+
+    public function createFaculty(
+        string $faculty
+    ): OfferingFaculty {
+
+        // ⭐ CORRECT ANSWER
+        return new RegularFaculty($faculty);
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TEST
+|--------------------------------------------------------------------------
+*/
+
+$factory =
+    new RegularSubjectOfferingFactory();
+
+
+$subject =
+    $factory->createSubject(
+        "Web Development"
+    );
+
+
+$schedule =
+    $factory->createSchedule(
+        "MWF 8:00 AM - 9:00 AM"
+    );
+
+
+$room =
+    $factory->createRoom(
+        "Room 301"
+    );
+
+
+$faculty =
+    $factory->createFaculty(
+        "Juan Dela Cruz"
+    );
+
+
+echo "&lt;pre&gt;";
+
+echo "Subject: "
+    . $subject->getName()
+    . PHP_EOL;
+
+echo "Schedule: "
+    . $schedule->getSchedule()
+    . PHP_EOL;
+
+echo "Room: "
+    . $room->getRoom()
+    . PHP_EOL;
+
+echo "Faculty: "
+    . $faculty->getFaculty()
+    . PHP_EOL;
+
+echo "&lt;/pre&gt;";</code></pre>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="answer-label">
+
+                <div class="icon">✓</div>
+
+                <strong>
+                    Correct Answers
+                </strong>
+
+            </div>
+
+            <div class="answer-box">
+
+<pre class="code"><code>return new RegularSubject($name);
+
+return new RegularSchedule($schedule);
+
+return new RegularRoom($room);
+
+return new RegularFaculty($faculty);</code></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PATTERN 4 — BUILDER
+========================================================= -->
+
+<section class="pattern-card">
+
+    <div class="pattern-header">
+
+        <div>
+
+            <div class="pattern-number">
+                Pattern 04
+            </div>
+
+            <h2>
+                Builder
+            </h2>
+
+        </div>
+
+        <div class="points">
+            20 POINTS
+        </div>
+
+    </div>
+
+
+    <div class="pattern-content">
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Scenario
+            </div>
+
+            <div class="scenario">
+
+                A Subject Offering contains many properties:
+
+                Academic Year, Semester, Subject Code,
+                Subject Name, Subject Type, Section,
+                Schedule, Room, Faculty, and Capacity.
+
+                The Builder allows the Coordinator to
+                construct the offering step-by-step.
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Concept
+            </div>
+
+            <div class="concept">
+
+                Builder answers:
+
+                <strong>
+                    "How do I construct a complex Subject
+                    Offering step-by-step?"
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Complete PHP Code — Correct Answer
+            </div>
+
+            <div class="code-container">
+
+                <div class="code-header">
+
+                    <div class="code-header-left">
+
+                        <span class="php-badge">
+                            PHP
+                        </span>
+
+                        Complete Implementation
+
+                    </div>
+
+                    <div class="code-header-right">
+                        Faculty Answer
+                    </div>
+
+                </div>
+
+<pre class="code"><code>&lt;?php
+
+/*
+|--------------------------------------------------------------------------
+| PRODUCT
+|--------------------------------------------------------------------------
+*/
+
+class SubjectOffering
+{
+    public array $data = [];
+
+    public function display(): void
+    {
+        echo "&lt;pre&gt;";
+
+        print_r($this->data);
+
+        echo "&lt;/pre&gt;";
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| BUILDER
+|--------------------------------------------------------------------------
+*/
+
+class SubjectOfferingBuilder
+{
+    private SubjectOffering $offering;
+
+
+    public function __construct()
+    {
+        $this->offering =
+            new SubjectOffering();
+    }
+
+
+    public function setAcademicYear(
+        string $academicYear
+    ): self {
+
+        // ⭐ CORRECT ANSWER
+        $this->offering->data["academicYear"]
+            = $academicYear;
+
+        // ⭐ CORRECT ANSWER
+        return $this;
+    }
+
+
+    public function setSemester(
+        string $semester
+    ): self {
+
+        // ⭐ CORRECT ANSWER
+        $this->offering->data["semester"]
+            = $semester;
+
+        // ⭐ CORRECT ANSWER
+        return $this;
+    }
+
+
+    public function setSubjectCode(
+        string $subjectCode
+    ): self {
+
+        // ⭐ CORRECT ANSWER
+        $this->offering->data["subjectCode"]
+            = $subjectCode;
+
+        // ⭐ CORRECT ANSWER
+        return $this;
+    }
+
+
+    public function setSubjectName(
+        string $subjectName
+    ): self {
+
+        $this->offering->data["subjectName"]
+            = $subjectName;
+
+        return $this;
+    }
+
+
+    public function setSubjectType(
+        string $subjectType
+    ): self {
+
+        $this->offering->data["subjectType"]
+            = $subjectType;
+
+        return $this;
+    }
+
+
+    public function setSection(
+        string $section
+    ): self {
+
+        // ⭐ CORRECT ANSWER
+        $this->offering->data["section"]
+            = $section;
+
+        // ⭐ CORRECT ANSWER
+        return $this;
+    }
+
+
+    public function setSchedule(
+        string $schedule
+    ): self {
+
+        $this->offering->data["schedule"]
+            = $schedule;
+
+        return $this;
+    }
+
+
+    public function setRoom(
+        string $room
+    ): self {
+
+        // ⭐ CORRECT ANSWER
+        $this->offering->data["room"]
+            = $room;
+
+        // ⭐ CORRECT ANSWER
+        return $this;
+    }
+
+
+    public function setFaculty(
+        string $faculty
+    ): self {
+
+        $this->offering->data["faculty"]
+            = $faculty;
+
+        return $this;
+    }
+
+
+    public function setCapacity(
+        int $capacity
+    ): self {
+
+        $this->offering->data["capacity"]
+            = $capacity;
+
+        return $this;
+    }
+
+
+    public function build(): SubjectOffering
+    {
+        return $this->offering;
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| TEST
+|--------------------------------------------------------------------------
+*/
+
+$offering =
+    (new SubjectOfferingBuilder())
+
+    ->setAcademicYear(
+        "2026-2027"
+    )
+
+    ->setSemester(
+        "1st Semester"
+    )
+
+    ->setSubjectCode(
+        "IT202"
+    )
+
+    ->setSubjectName(
+        "Web Development"
+    )
+
+    ->setSubjectType(
+        "Lecture"
+    )
+
+    ->setSection(
+        "BSIT-2A"
+    )
+
+    ->setSchedule(
+        "MWF 8:00 AM - 9:00 AM"
+    )
+
+    ->setRoom(
+        "Room 301"
+    )
+
+    ->setFaculty(
+        "Juan Dela Cruz"
+    )
+
+    ->setCapacity(
+        40
+    )
+
+    ->build();
+
+
+$offering->display();</code></pre>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="answer-label">
+
+                <div class="icon">✓</div>
+
+                <strong>
+                    Correct Answers — Missing Methods
+                </strong>
+
+            </div>
+
+            <div class="answer-box">
+
+<pre class="code"><code>public function setAcademicYear(
+    string $academicYear
+): self {
+
+    $this->offering->data["academicYear"]
+        = $academicYear;
+
+    return $this;
+}
+
+
+public function setSemester(
+    string $semester
+): self {
+
+    $this->offering->data["semester"]
+        = $semester;
+
+    return $this;
+}
+
+
+public function setSubjectCode(
+    string $subjectCode
+): self {
+
+    $this->offering->data["subjectCode"]
+        = $subjectCode;
+
+    return $this;
+}
+
+
+public function setSection(
+    string $section
+): self {
+
+    $this->offering->data["section"]
+        = $section;
+
+    return $this;
+}
+
+
+public function setRoom(
+    string $room
+): self {
+
+    $this->offering->data["room"]
+        = $room;
+
+    return $this;
+}</code></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PATTERN 5 — PROTOTYPE
+========================================================= -->
+
+<section class="pattern-card">
+
+    <div class="pattern-header">
+
+        <div>
+
+            <div class="pattern-number">
+                Pattern 05
+            </div>
+
+            <h2>
+                Prototype
+            </h2>
+
+        </div>
+
+        <div class="points">
+            20 POINTS
+        </div>
+
+    </div>
+
+
+    <div class="pattern-content">
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Scenario
+            </div>
+
+            <div class="scenario">
+
+                The Coordinator has already created Section A
+                for a subject.
+
+                Instead of creating another offering from
+                scratch, the Coordinator can clone the existing
+                offering and modify only the values that need
+                to change.
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Concept
+            </div>
+
+            <div class="concept">
+
+                Prototype answers:
+
+                <strong>
+                    "How can I create another similar object
+                    without building it from scratch?"
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="section-title">
+                Complete PHP Code — Correct Answer
+            </div>
+
+            <div class="code-container">
+
+                <div class="code-header">
+
+                    <div class="code-header-left">
+
+                        <span class="php-badge">
+                            PHP
+                        </span>
+
+                        Complete Implementation
+
+                    </div>
+
+                    <div class="code-header-right">
+                        Faculty Answer
+                    </div>
+
+                </div>
+
+<pre class="code"><code>&lt;?php
+
+/*
+|--------------------------------------------------------------------------
+| PROTOTYPE
+|--------------------------------------------------------------------------
+*/
+
+class SubjectOfferingPrototype
+{
+    public string $academicYear;
+
+    public string $semester;
+
+    public string $subjectCode;
+
+    public string $subjectName;
+
+    public string $subjectType;
+
+    public string $section;
+
+    public string $schedule;
+
+    public string $room;
+
+    public string $faculty;
+
+    public int $capacity;
+
+
+    public function __construct(
+        string $academicYear,
+        string $semester,
+        string $subjectCode,
+        string $subjectName,
+        string $subjectType,
+        string $section,
+        string $schedule,
+        string $room,
+        string $faculty,
+        int $capacity
+    ) {
+
+        $this->academicYear =
+            $academicYear;
+
+        $this->semester =
+            $semester;
+
+        $this->subjectCode =
+            $subjectCode;
+
+        $this->subjectName =
+            $subjectName;
+
+        $this->subjectType =
+            $subjectType;
+
+        $this->section =
+            $section;
+
+        $this->schedule =
+            $schedule;
+
+        $this->room =
+            $room;
+
+        $this->faculty =
+            $faculty;
+
+        $this->capacity =
+            $capacity;
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| ORIGINAL SUBJECT OFFERING
+|--------------------------------------------------------------------------
+*/
+
+$sectionA =
+    new SubjectOfferingPrototype(
+
+        "2026-2027",
+
+        "1st Semester",
+
+        "IT202",
+
+        "Web Development",
+
+        "Lecture",
+
+        "BSIT-2A",
+
+        "MWF 8:00 AM - 9:00 AM",
+
+        "Room 301",
+
+        "Juan Dela Cruz",
+
+        40
+    );
+
+
+/*
+|--------------------------------------------------------------------------
+| CLONE
+|--------------------------------------------------------------------------
+*/
+
+// ⭐ CORRECT ANSWER
+$sectionB = clone $sectionA;
+
+
+/*
+|--------------------------------------------------------------------------
+| MODIFY CLONE
+|--------------------------------------------------------------------------
+*/
+
+// ⭐ CORRECT ANSWER
+$sectionB->section =
+    "BSIT-2B";
+
+
+// ⭐ CORRECT ANSWER
+$sectionB->schedule =
+    "TTh 10:00 AM - 11:30 AM";
+
+
+// ⭐ CORRECT ANSWER
+$sectionB->room =
+    "Room 302";
+
+
+// ⭐ CORRECT ANSWER
+$sectionB->faculty =
+    "Maria Santos";
+
+
+/*
+|--------------------------------------------------------------------------
+| TEST
+|--------------------------------------------------------------------------
+*/
+
+echo "&lt;h3&gt;Original Section&lt;/h3&gt;";
+
+echo "&lt;pre&gt;";
+
+print_r($sectionA);
+
+echo "&lt;/pre&gt;";
+
+
+echo "&lt;h3&gt;Cloned Section&lt;/h3&gt;";
+
+echo "&lt;pre&gt;";
+
+print_r($sectionB);
+
+echo "&lt;/pre&gt;";
+
+
+echo $sectionA === $sectionB
+
+    ? "FAIL: Same object."
+
+    : "PASS: Clone is a separate object.";</code></pre>
+
+            </div>
+
+        </div>
+
+
+        <div class="section">
+
+            <div class="answer-label">
+
+                <div class="icon">✓</div>
+
+                <strong>
+                    Correct Answers
+                </strong>
+
+            </div>
+
+            <div class="answer-box">
+
+<pre class="code"><code>// TODO 1
+$sectionB = clone $sectionA;
+
+
+// TODO 2
+$sectionB->section = "BSIT-2B";
+
+
+// TODO 3
+$sectionB->schedule =
+    "TTh 10:00 AM - 11:30 AM";
+
+
+// TODO 4
+$sectionB->room = "Room 302";
+
+
+// TODO 5
+$sectionB->faculty = "Maria Santos";</code></pre>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SUMMARY
+========================================================= -->
+
+<section class="summary-card">
+
+    <h2>
+        Faculty Answer Summary
+    </h2>
+
+    <div class="summary-table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>
+                        Pattern
+                    </th>
+
+                    <th>
+                        Purpose
+                    </th>
+
+                    <th>
+                        Main Correct Answer
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            Singleton
+                        </strong>
+                    </td>
+
+                    <td>
+                        One centralized Coordinator
+                        Activity Logger.
+                    </td>
+
+                    <td>
+<code>self::$instance = new CoordinatorLogger();</code>
+<br><br>
+<code>return self::$instance;</code>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            Factory Method
+                        </strong>
+                    </td>
+
+                    <td>
+                        Creates the appropriate
+                        Subject type.
+                    </td>
+
+                    <td>
+<code>return new LectureSubject();</code>
+<br>
+<code>return new LaboratorySubject();</code>
+<br>
+<code>return new LectureLaboratorySubject();</code>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            Abstract Factory
+                        </strong>
+                    </td>
+
+                    <td>
+                        Creates a family of related
+                        Subject Offering components.
+                    </td>
+
+                    <td>
+<code>return new RegularSubject($name);</code>
+<br>
+<code>return new RegularSchedule($schedule);</code>
+<br>
+<code>return new RegularRoom($room);</code>
+<br>
+<code>return new RegularFaculty($faculty);</code>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            Builder
+                        </strong>
+                    </td>
+
+                    <td>
+                        Constructs a complex Subject
+                        Offering step-by-step.
+                    </td>
+
+                    <td>
+<code>$this->offering->data["..."] = $parameter;</code>
+<br><br>
+<code>return $this;</code>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        <strong>
+                            Prototype
+                        </strong>
+                    </td>
+
+                    <td>
+                        Clones an existing Subject
+                        Offering to create another section.
+                    </td>
+
+                    <td>
+<code>$sectionB = clone $sectionA;</code>
+<br><br>
+Then modify:
+<code>section</code>,
+<code>schedule</code>,
+<code>room</code>,
+and <code>faculty</code>.
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    Creational Design Patterns Laboratory
+    <br>
+    Faculty PHP Answer Key
+
+</footer>
+
+
+</body>
+</html>
