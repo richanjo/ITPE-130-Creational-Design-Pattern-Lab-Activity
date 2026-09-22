@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Creational Design Patterns — PHP Coding Laboratory</title>
+<meta name="description" content="Guided PHP code-completion laboratory on five creational design patterns for a Subject Offering and Student Enrollment System.">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-badge" aria-hidden="true">&lt;?php</span>
+      <div class="brand-text">
+        <h1>Creational Design Patterns</h1>
+        <p>PHP Coding Laboratory &middot; Subject Offering &amp; Student Enrollment System</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button id="topResetBtn" class="btn btn-ghost btn-sm topbar-btn" type="button" title="Clear saved progress and start a new session">
+        &#8635;&nbsp; Reset Session
+      </button>
+    </div>
+    <div id="sessionBadge" class="session-badge hidden" role="status">
+      <span class="session-lock" aria-hidden="true">&#128274;</span>
+      <div class="session-badge-text">
+        <strong>SESSION ACTIVE</strong>
+        <p>Your score, progress, and timer are saved automatically. Refreshing the page will not restart the laboratory.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="main">
+
+  <section id="startScreen" class="card start-card" aria-labelledby="startTitle">
+    <p class="eyebrow">PHP &middot; CREATIONAL PATTERNS &middot; CODE-COMPLETION LABORATORY</p>
+    <h2 id="startTitle">Subject Offering &amp; Student Enrollment System</h2>
+    <p class="start-sub">
+      Complete the missing PHP logic in five guided activities.
+      Your instructor provides the structure &mdash; you complete the important PHP logic.
+      Each completed activity is worth <strong>20 points</strong>, for a total of <strong>100 points</strong>.
+    </p>
+
+    <div class="start-meta">
+      <div class="meta-cell">
+        <span class="meta-label">Coding Activities</span>
+        <span class="meta-value">5</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Total Points</span>
+        <span class="meta-value">100</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Time</span>
+        <span class="meta-value mono" id="startTimeValue">00:00</span>
+      </div>
+      <div class="meta-cell">
+        <span class="meta-label">Score</span>
+        <span class="meta-value" id="startScoreValue">0 / 100</span>
+      </div>
+    </div>
+
+    <ol class="start-patterns">
+      <li><b>01 &middot; Singleton</b><span>Coordinator Activity Logger</span><em>20 pts</em></li>
+      <li><b>02 &middot; Factory Method</b><span>Subject Creation</span><em>20 pts</em></li>
+      <li><b>03 &middot; Abstract Factory</b><span>Subject Offering Components</span><em>20 pts</em></li>
+      <li><b>04 &middot; Builder</b><span>Complete Subject Offering</span><em>20 pts</em></li>
+      <li><b>05 &middot; Prototype</b><span>Clone Subject Offering</span><em>20 pts</em></li>
+    </ol>
+
+    <div class="center">
+      <button id="startBtn" class="btn btn-primary btn-xl" type="button">&#9654;&nbsp; START ACTIVITY</button>
+    </div>
+    <div class="start-note">The timer starts only when you press START ACTIVITY and confirm your Student ID Number and Section. Your session is restored automatically if you refresh the page.</div>
+  </section>
+
+  <div class="lab-layout">
+
+    <aside class="lab-sidebar" aria-label="Pattern navigation sidebar">
+      <section id="patternNavSection" class="hidden" aria-label="Pattern navigation">
+        <div class="pattern-nav-head">
+          <div>
+            <p class="eyebrow">PATTERN NAVIGATION</p>
+            <p class="nav-sub">Complete each pattern in order. A locked pattern unlocks only after you pass the previous activity.</p>
+          </div>
+          <button id="resetLabBtn" class="btn btn-ghost btn-sm btn-danger-text" type="button">Reset Laboratory</button>
+        </div>
+        <div class="pattern-nav" id="patternNav"></div>
+      </section>
+    </aside>
+
+    <div class="lab-content">
+
+      <section id="studentBar" class="student-bar hidden" aria-label="Student information">
+        <div class="student-info">
+          <span class="student-chip">
+            <span class="stu-label">STUDENT ID</span>
+            <strong id="studentIdValue">&mdash;</strong>
+          </span>
+          <span class="student-chip">
+            <span class="stu-label">SECTION</span>
+            <strong id="studentSectionValue">&mdash;</strong>
+          </span>
+        </div>
+        <button id="resultsBtn" class="btn btn-primary" type="button">&#128203;&nbsp; View Results</button>
+      </section>
+
+      <section id="dashboard" class="dash-grid hidden" aria-label="Laboratory dashboard">
+        <div class="dash-card">
+          <span class="dash-label">SCORE</span>
+          <span class="dash-value" id="scoreValue" aria-live="polite">0 / 100</span>
+        </div>
+        <div class="dash-card">
+          <span class="dash-label">TIME</span>
+          <span class="dash-value mono" id="timeValue" aria-live="polite">00:00</span>
+        </div>
+        <div class="dash-card">
+          <span class="dash-label">LABORATORY PROGRESS</span>
+          <div class="progress-wrap">
+            <div class="progress-track" role="presentation">
+              <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <span class="progress-label" id="progressLabel">0%</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="breakdownCard" class="card hidden" aria-labelledby="breakdownTitle">
+        <h3 id="breakdownTitle" class="card-title">Score Breakdown</h3>
+        <ul class="breakdown-list" id="breakdownList"></ul>
+      </section>
+
+      <section id="activityPanel" class="hidden" aria-live="off"></section>
+
+      <section id="completionPanel" class="hidden" aria-live="polite"></section>
+
+    </div>
+
+  </div>
+
+</main>
+
+<footer class="footer">
+  <div class="browser-note">
+    <strong>BROWSER VALIDATION MODE</strong>
+    <p>
+      The laboratory validates your PHP source code structure.
+      Actual PHP execution requires a PHP-enabled server such as
+      XAMPP, WAMP, Laragon, or the PHP built-in server.
+    </p>
+  </div>
+  <p class="footer-credit">ITPE 130 &middot; Integrative Programming 2 &middot; Creational Design Patterns Laboratory &middot; Developed by <strong>Rich Anjo Capiloyan</strong> &middot; DOrSU BSIT Faculty / Computer Programmer &ndash; DICT.</p>
+</footer>
+
+<div class="modal-overlay hidden" id="startModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="startModalTitle">
+    <button type="button" class="modal-close" id="startModalClose" aria-label="Close">&times;</button>
+    <div class="course-badge">ITPE 130</div>
+    <h3 id="startModalTitle" class="modal-title">Integrative Programming 2</h3>
+    <p class="modal-sub">Creational Design Pattern Laboratory &middot; Subject Offering &amp; Student Enrollment System</p>
+    <p class="modal-dev">
+      Developed by <strong>Rich Anjo Capiloyan</strong><br>
+      DOrSU BSIT Faculty / Computer Programmer &ndash; DICT
+    </p>
+
+    <form id="startForm" novalidate>
+      <label class="modal-field" for="studentIdInput">Student ID Number</label>
+      <input id="studentIdInput" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. 2026-0001" required>
+      <label class="modal-field" for="sectionSelect">Section</label>
+      <select id="sectionSelect" required>
+        <option value="">Select section</option>
+        <option value="IT3G">IT3G</option>
+        <option value="IT3E">IT3E</option>
+      </select>
+      <p class="modal-error hidden" id="startModalError" role="alert"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="startCancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary">&#9654;&nbsp; Begin Laboratory</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="resultsModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="resultsModalTitle">
+    <button type="button" class="modal-close" id="resultsModalClose" aria-label="Close">&times;</button>
+    <h3 id="resultsModalTitle" class="modal-title">Laboratory Results</h3>
+    <div class="result-sheet" id="resultSheet">
+      <div class="rs-header">
+        <span class="course-badge">ITPE 130</span>
+        <p class="rs-course">Integrative Programming 2 &middot; Creational Design Pattern Laboratory</p>
+        <p class="rs-dev">Developed by Rich Anjo Capiloyan &middot; DOrSU BSIT Faculty / Computer Programmer &ndash; DICT</p>
+      </div>
+      <div class="rs-grid">
+        <div><span>Student ID</span><strong id="rsStudentId">&mdash;</strong></div>
+        <div><span>Section</span><strong id="rsSection">&mdash;</strong></div>
+        <div><span>Current Score</span><strong id="rsScore">&mdash;</strong></div>
+        <div><span>Patterns Completed</span><strong id="rsCompleted">&mdash;</strong></div>
+        <div><span>Progress</span><strong id="rsProgress">&mdash;</strong></div>
+        <div><span>Completion Time</span><strong id="rsTime">&mdash;</strong></div>
+        <div><span>Date &amp; Time</span><strong id="rsStamp">&mdash;</strong></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="resultsCloseBtn">Close</button>
+      <button type="button" class="btn btn-primary" id="downloadBtn">&#128229;&nbsp; Download Result (Photo)</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="resetModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="resetModalTitle">
+    <button type="button" class="modal-close" id="resetModalClose" aria-label="Close">&times;</button>
+    <h3 id="resetModalTitle" class="modal-title">Reset Laboratory</h3>
+    <p class="modal-sub">This permanently clears your saved session (score, progress, timer, student info) so you can start a new laboratory. Enter the reset code to continue.</p>
+    <label class="modal-field" for="resetCodeInput">Reset Code</label>
+    <input id="resetCodeInput" type="password" inputmode="numeric" autocomplete="off" placeholder="Enter the reset code">
+    <p class="modal-error hidden" id="resetModalError" role="alert"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn btn-ghost" id="resetCancelBtn">Cancel</button>
+      <button type="button" class="btn btn-danger" id="resetConfirmBtn">&#8635;&nbsp; Clear &amp; Reset Session</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
